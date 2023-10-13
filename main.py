@@ -1,10 +1,21 @@
-import random
-elements = "+-/*!&$#?=@abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
-pass_length = int(input("Pass Length"))
+import discord
+from discord.ext import commands
 
-password = ''
- 
-for i in range(pass_length):
-    password += random.choice(elements)
+intents = discord.Intents.default()
+intents.message_content = True
 
-print(password)
+bot = commands.Bot(command_prefix='$', intents=discord.Intents.default())
+
+@bot.event
+async def on_ready():
+    print(f'We have logged in as {bot.user}')
+
+@bot.command()
+async def hello(ctx):
+    await ctx.send(f'Привет! Я бот {bot.user}!')
+
+@bot.command()
+async def heh(ctx, count_heh = 5):
+    await ctx.send("he" * count_heh)
+
+bot.run("MTE1OTg3NzYyMTEyMzkyNDE3OQ.G_-h0T.yl6y9KZSgmRDo3iGEU51NuRrGeJGHbotgX_Rcw")
